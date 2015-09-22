@@ -1,11 +1,15 @@
 require 'minitest_helper'
 
-class TestPartitions < Minitest::Test
-  def test_that_it_has_a_version_number
-    refute_nil ::Partitions::VERSION
+  describe "Partitions::VERSION" do
+    it "should have a version numer" do
+      refute_nil Partitions::VERSION
+    end
   end
 
-  def test_it_does_something_useful
-    assert false
+  describe "Partitions::all" do
+    it "should return the partitions for given n" do
+      Partitions::all(8) do |partition|
+        p "partition is #{partition}"
+      end
+    end
   end
-end
