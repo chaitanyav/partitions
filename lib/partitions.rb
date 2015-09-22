@@ -3,6 +3,10 @@ require "partitions/version"
 module Partitions
 
   def self.all(n)
+    if n < 0
+      raise ArgumentError, "n should be greater than or equal to 0"
+    end
+
     a = Array.new(n + 1, 0)
     k = 2
     a[1] = 0
