@@ -21,11 +21,28 @@ Or install it yourself as:
     $ gem install partitions
 
 ## Usage
+    >> require 'partitions' #=> true
+    >> 5.partitions #=> nil
+    [1, 1, 1, 1, 1]
+    [1, 1, 1, 2]
+    [1, 1, 3]
+    [1, 2, 2]
+    [1, 4]
+    [2, 3]
+    [5]
 
-TODO: Write usage instructions here
+    >> 5.partitions{|partition| p partition};nil #=> nil
+    [1, 1, 1, 1, 1]
+    [1, 1, 1, 2]
+    [1, 1, 3]
+    [1, 2, 2]
+    [1, 4]
+    [2, 3]
+    [5]
 
 ##References
 ###Integer Partitions
+---------------------------
 [Generating All Partitions: A Comparison Of Two Encodings Jerome Kelleher, Barry O'Sullivan](http://arxiv.org/abs/0909.2331v2)
 http://jeromekelleher.net/partitions.php
 
