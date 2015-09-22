@@ -25,8 +25,8 @@ Or install it yourself as:
 TODO: Write usage instructions here
 
 ##References
+###Integer Partitions
 [Generating All Partitions: A Comparison Of Two Encodings Jerome Kelleher, Barry O'Sullivan](http://arxiv.org/abs/0909.2331v2)
-
 http://jeromekelleher.net/partitions.php
 
 ## Development
