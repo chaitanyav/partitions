@@ -26,6 +26,9 @@ TODO: Write usage instructions here
 
 ##References
 [Generating All Partitions: A Comparison Of Two Encodings Jerome Kelleher, Barry O'Sullivan](http://arxiv.org/abs/0909.2331v2)
+
+http://jeromekelleher.net/partitions.php
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
