@@ -38,6 +38,7 @@ Or install it yourself as:
     [2, 3]
     [5]
 
+
     irb(main):001:0> sp = Partitions::SetPartitions.new(4)
     => #<Partitions::SetPartitions:0x007fedab516f58 @n=4, @k=[0, 0, 0, 0], @m=[0, 0, 0, 0], @p=nil, @size=0>
     irb(main):002:0> sp.each_partition{|partition| p partition};nil
@@ -57,6 +58,7 @@ Or install it yourself as:
     [0, 1, 2, 2]
     [0, 1, 2, 3]
     => nil
+
     irb(main):003:0> sp = Partitions::SetPartitions.new(3)
     => #<Partitions::SetPartitions:0x007fedab4fea48 @n=3, @k=[0, 0, 0], @m=[0, 0, 0], @p=nil, @size=0>
     irb(main):004:0> sp.next_partition
@@ -79,6 +81,17 @@ Or install it yourself as:
     => [0, 0, 0]
     irb(main):013:0> sp.previous_partition
     => nil
+
+    irb(main):001:0> sp = Partitions::SetPartitions.new(5)
+    => #<Partitions::SetPartitions:0x007f903c426a70 @n=5, @k=[0, 0, 0, 0, 0], @m=[0, 0, 0, 0, 0], @p=nil, @size=0>
+    irb(main):002:0> sp.count
+    => 52
+
+    irb(main):003:0> sp = Partitions::SetPartitions.new(8)
+    => #<Partitions::SetPartitions:0x007f903c417458 @n=8, @k=[0, 0, 0, 0, 0, 0, 0, 0], @m=[0, 0, 0, 0, 0, 0, 0, 0], @p=nil, @size=0>
+    irb(main):004:0> sp.count
+    => 4140
+
 ##References
 ###Integer Partitions
 ---------------------------
@@ -88,6 +101,10 @@ http://jeromekelleher.net/partitions.php
 ###Set Partitions
 ---------------------------
 [Orlov, M.: Efficient generation of set partitions. Tech. rep., Engineering and Computer Sciences, University of Ulm (2002)](http://www.informatik.uni-ulm.de/ni/Lehre/WS03/DMM/Software/partitions.pdf)
+
+###Stirling Number of the Second Kind
+-----------------------------------------
+http://mathworld.wolfram.com/StirlingNumberoftheSecondKind.html
 
 ## Development
 
