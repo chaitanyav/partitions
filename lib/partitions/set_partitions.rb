@@ -1,5 +1,5 @@
 module Partitions
-	class SetPartition
+	class SetPartitions
 		attr_accessor :k, :m, :n, :size
 
 		def initialize(n, p=nil)
@@ -8,10 +8,6 @@ module Partitions
 			@m = Array.new(n, 0)
 			@p = p
 			@size = 0
-		end
-
-		def max a, b
-			return (a < b) ? b : a
 		end
 
 		def next_partition
@@ -53,6 +49,18 @@ module Partitions
 			return
 		end
 
+		def each_partition
+			unless block_given?
+				raise ArgumentError, "Missing block"
+			end
+			reinitialize
+			yield @k
+			(count - 1).times do 
+				yield next_partition
+			end
+			reinitialize
+		end
+
 		def count
 			sum = 0
 			(1..n).each do |k|
@@ -73,6 +81,16 @@ module Partitions
 
 		def partition_size
 			@m[n - 1] - @m[0] + 1
+		end
+
+		def reinitialize
+			@k = Array.new(n, 0)
+			@m = Array.new(n, 0)
+			@size = 0
+		end
+
+		def max a, b
+			return (a < b) ? b : a
 		end
 
 	end

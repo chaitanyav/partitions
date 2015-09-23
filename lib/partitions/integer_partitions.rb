@@ -1,6 +1,6 @@
 module Partitions
 
-  module IntegerPartition
+  module IntegerPartitions
     def partitions
       n = self
       if n < 0
@@ -35,5 +35,5 @@ module Partitions
 end
 
 class Integer
-  include Partitions::IntegerPartition
+  include Partitions::IntegerPartitions
 end
