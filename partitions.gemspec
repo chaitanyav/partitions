@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "partitions"
   spec.version       = Partitions::VERSION
   spec.authors       = ["NagaChaitanya Vellanki"]
-  spec.email         = ["me@chaitanyavellanki.com"]
+  spec.email         = ["nagachaitanya.vellanki.com"]
 
   spec.summary       = %q{a rubygem to generate partitions.}
   spec.description   = %q{Generate integer, set and multiset partitions}
