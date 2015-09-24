@@ -5,3 +5,4 @@ SimpleCov.start
 
 require 'partitions'
 require 'minitest/autorun'
+require 'minitest/pride'

@@ -92,6 +92,26 @@ Or install it yourself as:
     irb(main):004:0> sp.count
     => 4140
 
+    irb(main):005:0> sp = Partitions::SetPartitions.new(6,5)
+    => #<Partitions::SetPartitions:0x007fd9c284def8 @n=6, @k=[0, 0, 1, 2, 3, 4], @m=[0, 0, 1, 2, 3, 4], @p=5, @size=5>
+    irb(main):006:0> sp.each_partition{|partition| p partition};nil
+    [0, 0, 1, 2, 3, 4]
+    [0, 1, 0, 2, 3, 4]
+    [0, 1, 1, 2, 3, 4]
+    [0, 1, 2, 0, 3, 4]
+    [0, 1, 2, 1, 3, 4]
+    [0, 1, 2, 2, 3, 4]
+    [0, 1, 2, 3, 0, 4]
+    [0, 1, 2, 3, 1, 4]
+    [0, 1, 2, 3, 2, 4]
+    [0, 1, 2, 3, 3, 4]
+    [0, 1, 2, 3, 4, 0]
+    [0, 1, 2, 3, 4, 1]
+    [0, 1, 2, 3, 4, 2]
+    [0, 1, 2, 3, 4, 3]
+    [0, 1, 2, 3, 4, 4]
+    => nil
+
 ##References
 ###Integer Partitions
 ---------------------------

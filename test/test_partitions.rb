@@ -8,14 +8,14 @@ end
 
 describe "n.partitions" do
   it "should yield the partition for given n >= 0" do
-    n = rand(10)
+    n = rand(4..8)
     n.partitions do |partition|
       assert_equal n, partition.reduce(:+)
     end
   end
 
   it "should print the partitions for the given n >=0" do
-    n = rand(5)
+    n = rand(1..8)
     n.partitions
   end
 
@@ -42,13 +42,198 @@ describe "SetPartitions.new(n)" do
     end
   end
 
-  it "should yield the partition on each_partition" do
+  it "should yield the lexiographic partition  on each_partition" do
     n = 4
     sp = Partitions::SetPartitions.new(n)
+    index = 0
+    partitions = [
+      [0, 0, 0, 0],
+      [0, 0, 0, 1],
+      [0, 0, 1, 0],
+      [0, 0, 1, 1],
+      [0, 0, 1, 2],
+      [0, 1, 0, 0],
+      [0, 1, 0, 1],
+      [0, 1, 0, 2],
+      [0, 1, 1, 0],
+      [0, 1, 1, 1],
+      [0, 1, 1, 2],
+      [0, 1, 2, 0],
+      [0, 1, 2, 1],
+      [0, 1, 2, 2],
+      [0, 1, 2, 3]
+    ]
     sp.each_partition do |partition|
-      refute partition.nil?
-      refute partition.empty?
-      assert n, partition.length
+      assert partitions[index], partition
+      index += 1
+    end
+  end
+
+  it "should return the number of partitions on count" do
+    num_partitions_by_n = {
+        1 => 1,
+        2 => 2,
+        3 => 5,
+        4 => 15,
+        5 => 52,
+        6 => 203,
+        7 => 877,
+        8 => 4140,
+        9 => 21147,
+        10 => 115975,
+        11 => 678570,
+        12 => 4213597}
+    num_partitions_by_n.each do |n, num_partitions|
+      sp = Partitions::SetPartitions.new(n)
+      assert num_partitions, sp.count
+    end
+  end
+
+  it "should return the next lexiographic partition on next_partition" do
+    sp = Partitions::SetPartitions.new(4)
+    partitions = [
+      [0, 0, 0, 1],
+      [0, 0, 1, 0],
+      [0, 0, 1, 1],
+      [0, 0, 1, 2],
+      [0, 1, 0, 0],
+      [0, 1, 0, 1],
+      [0, 1, 0, 2],
+      [0, 1, 1, 0],
+      [0, 1, 1, 1],
+      [0, 1, 1, 2],
+      [0, 1, 2, 0],
+      [0, 1, 2, 1],
+      [0, 1, 2, 2],
+      [0, 1, 2, 3]
+    ]
+    index = 0
+    while !(partition= sp.next_partition).nil? do
+      assert_equal  partitions[index], partition
+      index += 1
+    end
+  end
+
+  it "should return the previous lexiographic partition on previous_partition" do
+    sp = Partitions::SetPartitions.new(4)
+    partitions = [
+      [0, 0, 0, 0],
+      [0, 0, 0, 1],
+      [0, 0, 1, 0],
+      [0, 0, 1, 1],
+      [0, 0, 1, 2],
+      [0, 1, 0, 0],
+      [0, 1, 0, 1],
+      [0, 1, 0, 2],
+      [0, 1, 1, 0],
+      [0, 1, 1, 1],
+      [0, 1, 1, 2],
+      [0, 1, 2, 0],
+      [0, 1, 2, 1],
+      [0, 1, 2, 2],
+    ]
+    while !(partition = sp.next_partition).nil? do
+    end
+
+    index = 13
+    while !(partition=sp.previous_partition).nil? do
+      assert_equal partitions[index], partition
+      index -= 1
+    end
+  end
+end
+
+describe "SetPartitions.new(n, p)" do
+  it "should yield the lexiographic partition on each_partition" do
+    partitions = [
+      [0, 0, 0, 0, 1],
+      [0, 0, 0, 1, 0],
+      [0, 0, 0, 1, 1],
+      [0, 0, 1, 0, 0],
+      [0, 0, 1, 0, 1],
+      [0, 0, 1, 1, 0],
+      [0, 0, 1, 1, 1],
+      [0, 1, 0, 0, 0],
+      [0, 1, 0, 0, 1],
+      [0, 1, 0, 1, 0],
+      [0, 1, 0, 1, 1],
+      [0, 1, 1, 0, 0],
+      [0, 1, 1, 0, 1],
+      [0, 1, 1, 1, 0],
+      [0, 1, 1, 1, 1]
+    ]
+    index = 0
+    sp = Partitions::SetPartitions.new(5,2)
+    sp.each_partition do |partition|
+      assert_equal partitions[index], partition
+      index += 1
+    end
+  end
+
+  it "should return the number of partitions on count" do
+    n = rand(3..12)
+    sp = Partitions::SetPartitions.new(n)
+    total_partitions = sp.count
+    sum = 0
+    (1..n).each do |i|
+      sp = Partitions::SetPartitions.new(n,i)
+      sum += sp.count
+    end
+    assert_equal total_partitions, sum
+  end
+
+  it "should the next lexiographic partition on next_partition" do
+    partitions = [
+      [0, 0, 0, 1, 0],
+      [0, 0, 0, 1, 1],
+      [0, 0, 1, 0, 0],
+      [0, 0, 1, 0, 1],
+      [0, 0, 1, 1, 0],
+      [0, 0, 1, 1, 1],
+      [0, 1, 0, 0, 0],
+      [0, 1, 0, 0, 1],
+      [0, 1, 0, 1, 0],
+      [0, 1, 0, 1, 1],
+      [0, 1, 1, 0, 0],
+      [0, 1, 1, 0, 1],
+      [0, 1, 1, 1, 0],
+      [0, 1, 1, 1, 1]
+    ]
+    index = 0
+    sp = Partitions::SetPartitions.new(5,2)
+    while !(partition = sp.next_partition).nil?
+      assert_equal partitions[index], partition
+      index += 1
+    end
+  end
+
+  it "should return the previous lexiographic partition on previous_partition" do
+    partitions = [
+      [0, 0, 0, 0, 1],
+      [0, 0, 0, 1, 0],
+      [0, 0, 0, 1, 1],
+      [0, 0, 1, 0, 0],
+      [0, 0, 1, 0, 1],
+      [0, 0, 1, 1, 0],
+      [0, 0, 1, 1, 1],
+      [0, 1, 0, 0, 0],
+      [0, 1, 0, 0, 1],
+      [0, 1, 0, 1, 0],
+      [0, 1, 0, 1, 1],
+      [0, 1, 1, 0, 0],
+      [0, 1, 1, 0, 1],
+      [0, 1, 1, 1, 0],
+    ]
+
+    index = 13
+    sp = Partitions::SetPartitions.new(5,2)
+
+    while !(partition = sp.next_partition).nil? do
+    end
+
+    while !(partition = sp.previous_partition).nil?
+      assert_equal partitions[index], partition
+      index -= 1
     end
   end
 end
