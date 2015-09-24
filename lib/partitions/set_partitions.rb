@@ -124,12 +124,28 @@ module Partitions
 
     attr_accessor :k, :m, :n
     attr_writer :size
+    @@cache = {}
+
+    def populate_cache(n, k, val)
+      if @@cache[n]
+        @@cache[n][k] = val
+      else
+        @@cache[n] = {k => val}
+      end
+    end
 
     def sterling_second(n, k)
+      if @@cache[n] && @@cache[n][k]
+        return @@cache[n][k]
+      end
+
       if k == 1 || k == n
         return 1
       else
-        return sterling_second(n - 1, k - 1) + k * sterling_second(n - 1, k)
+        populate_cache(n - 1, k - 1, sterling_second(n - 1, k - 1))
+        populate_cache(n - 1, k, sterling_second(n - 1, k))
+        populate_cache(n, k, @@cache[n - 1][k - 1] + k * @@cache[n - 1][k])
+        return @@cache[n][k]
       end
     end
 
