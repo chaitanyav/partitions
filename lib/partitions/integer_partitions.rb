@@ -3,8 +3,15 @@ module Partitions
     def partitions
       n = self
       raise ArgumentError, "n should be greater than or equal to 0" if n < 0
-      return enum_for(:partitions) unless block_given?
-      return yield([]) if n.zero?
+
+      if n.zero?
+        if block_given?
+          yield []
+        else
+          p []
+        end
+        return
+      end
 
       a = Array.new(n + 1, 0)
       k = 2
@@ -23,7 +30,12 @@ module Partitions
         end
 
         a[k] = x + y
-        yield a.values_at(1..k)
+
+        if block_given?
+          yield a.values_at(1..k)
+        else
+          p a.values_at(1..k)
+        end
       end
     end
   end

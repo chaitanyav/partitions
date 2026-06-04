@@ -14,13 +14,15 @@ describe "n.partitions" do
     end
   end
 
-  it "should return an enumerator when no block is given" do
-    n = rand(1..8)
-    assert_kind_of Enumerator, n.partitions
+  it "should print partitions when no block is given" do
+    output, _ = capture_io { 5.partitions }
+    assert_match(/\[1, 1, 1, 1, 1\]/, output)
+    assert_match(/\[5\]/, output)
   end
 
-  it "should return [[]] for 0.partitions" do
-    assert_equal [[]], 0.partitions.to_a
+  it "should print [] for 0.partitions when no block is given" do
+    output, _ = capture_io { 0.partitions }
+    assert_equal "[]\n", output
   end
 
   it "should raise error when n < 0" do
