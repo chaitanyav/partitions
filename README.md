@@ -1,5 +1,7 @@
 # Partitions
 
+[![Gem Version](https://badge.fury.io/rb/partitions.svg)](https://badge.fury.io/rb/partitions)
+
 Partitions is a rubygem to list integer, set and multiset partitions.
 
 ## Installation
