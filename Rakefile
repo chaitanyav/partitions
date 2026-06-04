@@ -1,8 +1,10 @@
 require "bundler/gem_tasks"
-require 'rake/testtask'
 
-Rake::TestTask.new do |t|
-    t.libs << 'test'
+desc "Run tests"
+task :test do
+  files = FileList["test/**/*_test.rb", "test/**/*.rb"].to_a
+  raise "No test files found" if files.empty?
+  ruby "-Itest", *files
 end
 
 task default: :test

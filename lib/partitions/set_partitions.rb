@@ -1,8 +1,14 @@
 module Partitions
   class SetPartitions
-    attr_reader  :size
+    include Enumerable
+    attr_reader :size
 
-    def initialize(n, p=nil)
+    def initialize(n, p = nil)
+      raise ArgumentError, "n must be a non-negative Integer" unless n.is_a?(Integer) && n >= 0
+      if !p.nil? && (!p.is_a?(Integer) || p < 1 || p > n)
+        raise ArgumentError, "p must be an Integer between 1 and n"
+      end
+
       @n = n
       @k = Array.new(n, 0)
       @m = Array.new(n, 0)
@@ -96,17 +102,16 @@ module Partitions
     end
 
     def each_partition
-      unless block_given?
-        raise ArgumentError, "Missing block"
-      end
+      return enum_for(:each_partition) unless block_given?
+
       reinitialize
       yield @k.clone
       (count - 1).times do
-        partition = next_partition
-        yield partition
+        yield next_partition
       end
       reinitialize
     end
+    alias each each_partition
 
     def count
       if @p.nil?
@@ -114,9 +119,9 @@ module Partitions
         (1..n).each do |k|
           sum += sterling_second(@n, k)
         end
-        return sum
+        sum
       else
-        sum = sterling_second(@n, @p)
+        sterling_second(@n, @p)
       end
     end
 

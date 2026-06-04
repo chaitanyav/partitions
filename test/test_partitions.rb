@@ -14,9 +14,13 @@ describe "n.partitions" do
     end
   end
 
-  it "should print the partitions for the given n >=0" do
+  it "should return an enumerator when no block is given" do
     n = rand(1..8)
-    n.partitions
+    assert_kind_of Enumerator, n.partitions
+  end
+
+  it "should return [[]] for 0.partitions" do
+    assert_equal [[]], 0.partitions.to_a
   end
 
   it "should raise error when n < 0" do
@@ -35,11 +39,9 @@ describe "SetPartitions.new" do
 end
 
 describe "SetPartitions.new(n)" do
-  it "should raise error if block is not given to each_partition" do
-    assert_raises ArgumentError do
-      sp = Partitions::SetPartitions.new(4)
-      sp.each_partition
-    end
+  it "should return an enumerator if block is not given to each_partition" do
+    sp = Partitions::SetPartitions.new(4)
+    assert_kind_of Enumerator, sp.each_partition
   end
 
   it "should yield the lexiographic partition  on each_partition" do
@@ -64,7 +66,7 @@ describe "SetPartitions.new(n)" do
       [0, 1, 2, 3]
     ]
     sp.each_partition do |partition|
-      assert partitions[index], partition
+      assert_equal partitions[index], partition
       index += 1
     end
   end
@@ -85,7 +87,7 @@ describe "SetPartitions.new(n)" do
         12 => 4213597}
     num_partitions_by_n.each do |n, num_partitions|
       sp = Partitions::SetPartitions.new(n)
-      assert num_partitions, sp.count
+      assert_equal num_partitions, sp.count
     end
   end
 
